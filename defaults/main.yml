@@ -1,0 +1,3 @@
+---
+osm2pgsql_bin: /usr/local/bin/osm2pgsql
+osm2pgsql_src_dir: /opt/src/osm2pgsql
