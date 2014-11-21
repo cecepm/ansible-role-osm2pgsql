@@ -1,0 +1,15 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: cecepm
+  description: Install osm2pgsql from source
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.6
+  platforms:
+  - name: Ubuntu
+    versions:
+    - precise
+    - trusty
+  categories:
+  - system

@@ -1,0 +1,64 @@
+---
+- name: detect if ansible is already installed
+  stat: path={{ osm2pgsql_bin }}
+  register: osm2pgsql
+
+- name: ensure git is installed
+  apt: name=git state=installed
+  when: not osm2pgsql.stat.exists
+  sudo: yes
+
+- name: ensure src dir exist
+  file:
+    path: "{{ osm2pgsql_src_dir }}"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    mode: "755"
+  when: not osm2pgsql.stat.exists
+  sudo: yes
+
+- name: ensure repo osm2pgsql exist
+  git:
+    repo: https://github.com/openstreetmap/osm2pgsql.git
+    dest: "{{ osm2pgsql_src_dir }}"
+    update: no
+  when: not osm2pgsql.stat.exists
+
+- name: ensure package dependencies is installed
+  apt: pkg={{ item }} state=installed
+  with_items:
+  - autoconf
+  - automake
+  - libtool
+  - make
+  - g++
+  - libboost-dev
+  - libboost-system-dev
+  - libboost-filesystem-dev
+  - libboost-thread-dev
+  - libxml2-dev
+  - libgeos-dev
+  - libgeos++-dev
+  - libpq-dev
+  - libbz2-dev
+  - libproj-dev
+  - protobuf-c-compiler
+  - libprotobuf-c0-dev
+  - lua5.2
+  - liblua5.2-dev
+  when: not osm2pgsql.stat.exists
+  sudo: yes
+
+- name: build osm2pgsql
+  shell: 'cd {{ osm2pgsql_src_dir }};{{ item }}'
+  with_items:
+  - ./autogen.sh
+  - ./configure
+  - make
+  when: not osm2pgsql.stat.exists
+  register: build_osm2pgsql_result
+
+- name: install osm2pgsql
+  command: make install chdir={{ osm2pgsql_src_dir }}
+  when: not osm2pgsql.stat.exists and build_osm2pgsql_result|success
+  sudo: true
