@@ -15,7 +15,7 @@ Available variables are listed below, along with default values (see `defaults/m
 
 ## Dependencies
 
-None.
+None. Tested on Ubuntu 14.04.
 
 ## Example Playbook
 
