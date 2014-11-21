@@ -1,5 +1,7 @@
 # Ansible Role: osm2pgsql
 
+[![Build Status](https://travis-ci.org/cecepm/ansible-role-osm2pgsql.svg?branch=master)](https://travis-ci.org/cecepm/ansible-role-osm2pgsql)
+
 Install osm2pgsql from sources.
 
 ## Requirements
