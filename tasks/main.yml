@@ -33,6 +33,7 @@
   - make
   - g++
   - libboost-dev
+  - libboost-all-dev
   - libboost-system-dev
   - libboost-filesystem-dev
   - libboost-thread-dev
