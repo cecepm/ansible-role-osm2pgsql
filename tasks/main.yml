@@ -64,4 +64,4 @@
 - name: install osm2pgsql
   command: make install chdir={{ osm2pgsql_src_dir }}
   when: not osm2pgsql.stat.exists and build_osm2pgsql_result|success
-  sudo: true
+  sudo: yes
